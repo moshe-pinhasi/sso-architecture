@@ -1,0 +1,15 @@
+{
+  "name": "auth-service",
+  "scripts": {
+    "server1": "nodemon app.js"
+  },
+  "author": "moshe pinhasi",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "1.18.10",
+    "body-parser": "1.18.3",
+    "cors": "2.8.5",
+    "express": "4.16.4",
+    "uuidv4": "4.0.0"
+  }
+}
