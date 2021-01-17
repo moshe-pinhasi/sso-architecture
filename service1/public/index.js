@@ -1,7 +1,7 @@
 'use strict'
 
-const evtSource = new EventSource("/");
+function onLoad() {
+    const {origin,pathname} = window.location
+    window.history.pushState('','',origin+pathname)
+}
 
-evtSource.onerror = function(event) {
-    console.log(event)
-  }

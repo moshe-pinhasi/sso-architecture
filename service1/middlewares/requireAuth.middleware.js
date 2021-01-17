@@ -19,7 +19,6 @@ async function requireAuth(req, res, next) {
     console.log('service 1 refering to', referer)
     return res.redirect(`${redirectLink}?referer=${referer}`)
   }
-  console.log(req.session)
   next();
 }
 
