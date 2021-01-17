@@ -6,11 +6,15 @@
   "author": "moshe pinhasi",
   "license": "ISC",
   "dependencies": {
-    "nodemon": "1.18.10",
     "body-parser": "1.18.3",
     "cors": "2.8.5",
+    "express-session": "^1.16.2",
     "express": "4.16.4",
+    "cookie-parser": "^1.4.5",
     "jsonwebtoken": "8.5.0",
     "uuidv4": "4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.10"
   }
 }
