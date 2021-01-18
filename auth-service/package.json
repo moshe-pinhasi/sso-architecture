@@ -1,7 +1,8 @@
 {
   "name": "auth-service",
   "scripts": {
-    "auth-server": "nodemon app.js"
+    "auth-server:dev": "nodemon server.js",
+    "auth-server": "node server.js"
   },
   "author": "moshe pinhasi",
   "license": "ISC",
