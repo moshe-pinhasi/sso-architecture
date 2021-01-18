@@ -13,6 +13,7 @@ const doLogin = (formData, ev) => {
   
   const onSuccess = (res) => {
     if (res.error) return
+    console.log(res)
     const {redirect,token} = res
         window.location.replace(`${redirect}?token=${token}`)
   }
