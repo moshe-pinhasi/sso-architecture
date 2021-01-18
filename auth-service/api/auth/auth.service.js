@@ -9,7 +9,9 @@ async function login(email, password) {
 
 async function verifyJWT(token) {
   const decoded = await tokenService.verify(token);
-  return !!decoded
+  const {email} = decoded
+  const user = {email}
+  return user
 }
 
 module.exports = {
