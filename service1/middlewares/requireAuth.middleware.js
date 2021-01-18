@@ -27,14 +27,9 @@ async function _verifyToken(token)  {
       const response = await axios.get(url)
       console.log(response.data)
       return response.data
-
-
 }
 
 
-// module.exports = requireAuth;
-
 module.exports = {
   requireAuth,
-
 }
