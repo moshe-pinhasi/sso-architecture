@@ -3,13 +3,12 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const path = require('path')
 const cookieSession = require('cookie-session')
-const { fetchSessionToken}  = require('./middlewares/fetchSessionToken.middleware')
 
+const { fetchSessionToken } = require('./middlewares/fetchSessionToken.middleware')
+const authRoutes = require('./api/auth/auth.routes')
 
 const app = express()
 const http = require('http').createServer(app);
-
-const authRoutes = require('./api/auth/auth.routes')
 
 app.use(bodyParser.json());
 
@@ -32,8 +31,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/api/auth', authRoutes)
 app.use(express.static('public'));
 
-// login page
-app.get('/**', fetchSessionToken, (req, res) => {
+app.get('/login', fetchSessionToken, (req,res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
 

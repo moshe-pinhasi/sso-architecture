@@ -6,6 +6,7 @@ async function login(email, password) {
 
   const user = email
   const token = await tokenService.sign(user)
+  console.log(token)
   return { user,token };
 }
 
