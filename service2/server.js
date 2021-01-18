@@ -37,11 +37,11 @@ app.get('/**', requireAuth, (req, res) => {
 })
 
 // const logger = require('./services/logger.service')
-const port = process.env.PORT || 3031;
+const port = process.env.PORT || 3032;
 
 http.listen(port, () => {
     console.log('Server is running on port: ' + port)
     if (process.env.NODE_ENV !== 'production') {
-        console.log('service 1')
+        console.log('service 2')
     }
 });

@@ -16,7 +16,7 @@ async function requireAuth(req, res, next) {
       return next();
     } catch (err) {
       console.log(err)
-      // in case token expired / missing / malformed we want to keep going
+      // in case token expired / missing / malformed
     }
   }
   const referer = `${req.headers.host}/${req.baseUrl}`

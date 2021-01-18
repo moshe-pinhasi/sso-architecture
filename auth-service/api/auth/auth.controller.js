@@ -17,7 +17,7 @@ async function verifyToken(req, res) {
     try {
         const { token } = req.params
         if (!token) throw 'token error'
-        const response = authService.verifyJWT(token)
+        const response = await authService.verifyJWT(token)
         res.send(response)
     } catch (err) {
         res.status(401).send('token error')

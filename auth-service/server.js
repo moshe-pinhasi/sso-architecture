@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const path = require('path')
+const cookieSession = require('cookie-session')
 
 // TODO: need to use "cookie-session"
 const cookieParser = require('cookie-parser')
@@ -16,19 +17,27 @@ const authRoutes = require('./api/auth/auth.routes')
 app.use(bodyParser.json());
 
 // TODO: need to use "cookie-session"
-app.use(cookieParser())
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }
-}))
+app.use(cookieSession({
+    name: 'session',
+    keys: ['key1', 'key2']
+  }))
+
+
+// Commenting out the old solution - TODO: delete it later
+// app.use(cookieParser())
+// app.use(session({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: false }
+// }))
+
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, 'public')));
 } else {
     const corsOptions = {
-        origin: ['http://127.0.0.1:3031', 'http://localhost:3032'],
+        origin: ['http://127.0.0.1:3031', 'http://localhost:3032', 'http://localhost:3031', 'http://127.0.0.1:3031'],
         credentials: true
     };
     app.use(cors(corsOptions));
