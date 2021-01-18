@@ -27,15 +27,14 @@ if (process.env.NODE_ENV === 'production') {
     app.use(cors(corsOptions));
 }
 
-// app.use(express.static('public'));
-app.get('/index.js', (req,res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.js'));
-})
-app.get('/**', requireAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+
+app.use(requireAuth, express.static('public'));
+
+app.get('/logout', (req,res) => {
+    const redirectLink = 'http://localhost:3030/'
+    res.redirect(`${redirectLink}api/auth/logout`)
 })
 
-// const logger = require('./services/logger.service')
 const port = process.env.PORT || 3031;
 
 http.listen(port, () => {

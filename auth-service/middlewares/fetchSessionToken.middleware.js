@@ -7,8 +7,9 @@ async function fetchSessionToken(req, res, next) {
 
     try {
         await tokenService.verify(token);
-        const redirectTo = decodeURIComponent(redirect)
-        res.redirect(`${redirectTo}?token=${token}`)
+        const redirectUrl = new URL(decodeURIComponent(redirect))
+        redirectUrl.searchParams.append('token',token)
+        res.redirect(redirectUrl.toString())
     } catch (err) { // in case token expired / missing / malformed we want to keep going
         console.log('FetchSessionToken::error', err)
         next()
