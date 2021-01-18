@@ -4,7 +4,6 @@ const cors = require('cors')
 const path = require('path')
 const cookieSession = require('cookie-session')
 
-
 const {requireAuth}  = require('./middlewares/requireAuth.middleware')
 
 const app = express()
@@ -23,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 } else {
     const corsOptions = {
         origin: ['http://127.0.0.1:3030', 'http://localhost:3030'],
-        credentials: true
+        credentials: false
     };
     app.use(cors(corsOptions));
 }

@@ -1,6 +1,6 @@
 const express = require('express')
 
-const {login, verifyToken, signup, logout} = require('./auth.controller')
+const {login, verifyToken} = require('./auth.controller')
 
 const router = express.Router()
 

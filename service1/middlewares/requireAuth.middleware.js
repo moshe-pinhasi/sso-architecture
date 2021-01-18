@@ -19,9 +19,12 @@ async function requireAuth(req, res, next) {
       // in case token expired / missing / malformed we want to keep going
     }
   }
-  const referer = `${req.headers.host}/${req.baseUrl}`
+  
+  const protocol = req.secure ? 'https://' : 'http://'
+  const referer = encodeURIComponent(`${protocol}${req.headers.host}/${req.baseUrl}`)
+  
   req.session.user = null;
-  return res.redirect(`${redirectLink}?referer=${referer}`)
+  return res.redirect(`${redirectLink}?redirect=${referer}`)
 }
 
 async function _verifyToken(token)  {

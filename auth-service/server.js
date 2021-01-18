@@ -16,22 +16,10 @@ const authRoutes = require('./api/auth/auth.routes')
 // Express App Config
 app.use(bodyParser.json());
 
-// TODO: need to use "cookie-session"
 app.use(cookieSession({
     name: 'session',
     keys: ['key1', 'key2']
   }))
-
-
-// Commenting out the old solution - TODO: delete it later
-// app.use(cookieParser())
-// app.use(session({
-//     secret: 'keyboard cat',
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { secure: false }
-// }))
-
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, 'public')));

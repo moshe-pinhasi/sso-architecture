@@ -2,12 +2,12 @@ const authService = require('./auth.service')
 
 
 async function login(req, res) {
-    const { email, password } = req.body
-    const { referer } = req.query
+    const { redirect, email, password } = req.body
     try {
         const { user, token } = await authService.login(email, password)
         req.session.user = user;
-        res.json({ referer, token })
+        req.session.token = token;
+        res.json({ redirect: decodeURIComponent(redirect) , token })
     } catch (err) {
         res.status(401).send({ error: err })
     }
