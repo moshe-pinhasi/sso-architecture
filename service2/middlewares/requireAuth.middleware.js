@@ -19,7 +19,6 @@ async function requireAuth(req, res, next) {
       // in case token expired / missing / malformed we want to keep going
     }
   }
-  
   const protocol = req.secure ? 'https://' : 'http://'
   const referer = encodeURIComponent(`${protocol}${req.headers.host}/${req.baseUrl}`)
   

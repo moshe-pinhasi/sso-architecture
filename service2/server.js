@@ -4,6 +4,7 @@ const cors = require('cors')
 const path = require('path')
 const cookieSession = require('cookie-session')
 
+
 const {requireAuth}  = require('./middlewares/requireAuth.middleware')
 
 const app = express()
@@ -22,7 +23,7 @@ if (process.env.NODE_ENV === 'production') {
 } else {
     const corsOptions = {
         origin: ['http://127.0.0.1:3030', 'http://localhost:3030'],
-        credentials: false
+        credentials: true
     };
     app.use(cors(corsOptions));
 }
@@ -36,11 +37,11 @@ app.get('/**', requireAuth, (req, res) => {
 })
 
 // const logger = require('./services/logger.service')
-const port = process.env.PORT || 3031;
+const port = process.env.PORT || 3032;
 
 http.listen(port, () => {
     console.log('Server is running on port: ' + port)
     if (process.env.NODE_ENV !== 'production') {
-        console.log('service 1')
+        console.log('service 2')
     }
 });
