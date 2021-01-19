@@ -32,7 +32,7 @@ app.use(requireAuth, express.static('public'));
 
 app.get('/logout', (req,res) => {
     const redirectLink = 'http://localhost:3030/'
-    res.redirect(`${redirectLink}api/auth/logout`)
+    res.redirect(`${redirectLink}logout`)
 })
 
 const port = process.env.PORT || 3031;

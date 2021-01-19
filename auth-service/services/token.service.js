@@ -3,7 +3,10 @@ const secret = 'secretToken'
 
 const removedTokens = []
 
+
 const options = {
+  // time in secods for the token to be valid before needing to log in again
+  expiresIn: 60
 }
 
 const sign = (user) => new Promise((resolve, reject) => {
@@ -27,6 +30,7 @@ const verify = (token) => new Promise((resolve, reject) => {
 function removeToken(token) {
   removedTokens.push(token)
 }
+
 module.exports = {
   sign,
   verify,

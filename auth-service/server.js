@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const path = require('path')
 const cookieSession = require('cookie-session')
-
+const tokenService = require('./services/token.service')
 const { fetchSessionToken } = require('./middlewares/fetchSessionToken.middleware')
 const authRoutes = require('./api/auth/auth.routes')
 
@@ -31,8 +31,24 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/api/auth', authRoutes)
 app.use(express.static('public'));
 
+app.get('/logout', async(req,res) => {
+    try {
+        const {token} = req.session
+        if (token) await tokenService.removeToken(token)
+        req.session = null
+        res.redirect('/login')
+    } catch (err) {
+        console.log('error logging out', err)
+        res.status(500).send('error')
+    }
+})
+
 app.get('/login', fetchSessionToken, (req,res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
+})
+
+app.get('/404', (req,res) => {
+    res.sendFile(path.join(__dirname, 'public', '404.html'));
 })
 
 const port = process.env.PORT || 3030;
