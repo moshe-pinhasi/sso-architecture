@@ -15,13 +15,19 @@ app.use(bodyParser.json());
 app.use(cookieSession({
     name: 'session',
     keys: ['key1', 'key2']
-  }))
+}))
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, 'public')));
 } else {
     const corsOptions = {
-        origin: ['http://127.0.0.1:3031', 'http://localhost:3032', 'http://localhost:3031', 'http://127.0.0.1:3031'],
+        origin: ['http://127.0.0.1:3031',
+        'http://localhost:3032',
+        'http://localhost:3031',
+        'http://127.0.0.1:3031',
+        'http://127.0.0.1:5001',
+        'http://localhost:5001',
+    ],
         credentials: true
     };
     app.use(cors(corsOptions));
@@ -31,9 +37,9 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/api/auth', authRoutes)
 app.use(express.static('public'));
 
-app.get('/logout', async(req,res) => {
+app.get('/logout', async (req, res) => {
     try {
-        const {token} = req.session
+        const { token } = req.session
         if (token) await tokenService.removeToken(token)
         req.session = null
         res.redirect('/login')
@@ -43,11 +49,11 @@ app.get('/logout', async(req,res) => {
     }
 })
 
-app.get('/login', fetchSessionToken, (req,res) => {
+app.get('/login', fetchSessionToken, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
 
-app.get('/404', (req,res) => {
+app.get('/404', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '404.html'));
 })
 

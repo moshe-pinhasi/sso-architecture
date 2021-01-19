@@ -9,11 +9,6 @@ async function login(email, password) {
   return { user, token }
 }
 
-async function logout(token) {
-  // this is async for future proofing
-  await tokenService.removeToken(token)
-}
-
 async function verifyJWT(token) {
   const decoded = await tokenService.verify(token)
   return { user: decoded }
@@ -21,6 +16,5 @@ async function verifyJWT(token) {
 
 module.exports = {
   login,
-  verifyJWT,
-  logout
+  verifyJWT
 }
