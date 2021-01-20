@@ -2,20 +2,20 @@ const API_URL = "/api"
 
 const doLogin = (formData, ev) => {
   ev.preventDefault()
-  const {email, password} = formData
-  
+  const { email, password } = formData
   const redirect = new URLSearchParams(window.location.search).get('redirect')
   const data = JSON.stringify({
-    email: email.value, 
+    email: email.value,
     password: password.value,
     redirect
   })
-  
+
   const onSuccess = (res) => {
     if (res.error) return
-    console.log(res)
-    const {redirect,token} = res
-        window.location.replace(`${redirect}?token=${token}`)
+    let { redirect, token } = res
+    if (!redirect || redirect === 'null') redirect = '/404'
+    // debugger
+    window.location.replace(`${redirect}?token=${token}`)
   }
 
   request('POST', `/auth/login`, data, onSuccess)
@@ -33,10 +33,10 @@ const request = (method, route, data, onSuccess) => {
     mode: "cors",
     body: data
   })
-  .then((response) => response.json())
-  .then(res => {
-    onSuccess && onSuccess(res)
-  })
-  
-  .catch(err => console.log(err))
+    .then((response) => response.json())
+    .then(res => {
+      onSuccess && onSuccess(res)
+    })
+
+    .catch(err => console.log(err))
 }

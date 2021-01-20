@@ -5,8 +5,8 @@ const SERVICE_NAME = 'service-1'
 
 async function requireAuth(req, res, next) {
   // get the token from the session OR the query
-  let sessionToken = req.session.token
-  let queryToken = req.query.token
+  const sessionToken = req.session.token
+  const queryToken = req.query.token
   const token = sessionToken || queryToken
   try {
     const {user} = await _verifyToken(token)
@@ -17,9 +17,14 @@ async function requireAuth(req, res, next) {
     console.log(`${SERVICE_NAME} - invalid token!`)
     req.session = null;
 
-    // TODO: add support for entire path including query and hash
     const protocol = req.secure ? 'https://' : 'http://'
-    const backTo = encodeURIComponent(`${protocol}${req.headers.host}/${req.baseUrl}`)
+    const {search, pathname} = req._parsedUrl
+
+    const url = new URL(`${protocol}${req.headers.host}`)
+    if (pathname) url.pathname = pathname
+    if (search) url.search = search
+    
+    const backTo = encodeURIComponent(url.toString())
     const redirectUrl = `${redirectLink}login?redirect=${backTo}`
     console.log(`${SERVICE_NAME} is redirecting to: `, redirectUrl)
     res.redirect(redirectUrl)
